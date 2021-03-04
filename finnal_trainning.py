@@ -83,7 +83,7 @@ def main(include_diagnoses=(1,3)):
     groups = ["nc","mci","ad"]
     save_name = [groups[include_diagnoses_-1] for include_diagnoses_ in include_diagnoses]
     save_name = "ensemble_model_" + "VS".join(save_name) + ".pickle.dat"
-    save_file = os.path.join("D:\My_Codes\lc_private_codes\AD分类比赛", save_name)
+    save_file = os.path.join(r"D:\My_Codes\lc_private_codes\AD分类比赛", save_name)
     pickle.dump(model_and_param, open(save_file, "wb"))
     
     # Predict

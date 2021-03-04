@@ -55,19 +55,23 @@ def preprocess(file,
     
     # Fibers index the needed to drop are 4,6,7
     data_for_all = {}
+    feature_name = []
     # num_na = np.zeros([num_sub,], dtype=np.int32)
     for metrics_ in METRICS:
         for i, feature_ in enumerate(feature):
             data = feature_[metrics_][0]
+            
             if i == 0:
+                feature_name.extend([metrics_ + "_" + str(i+1)] * data.shape[1])
                 data_for_one_metric = data
             elif i not in (4,6,7):  # Exclude the 5th, 7th and 8th fibers
-                data_for_one_metric = np.concatenate([data_for_one_metric, data], axis=1) 
+                 feature_name.extend([metrics_ + "_" + str(i+1)] * data.shape[1])
+                 data_for_one_metric = np.concatenate([data_for_one_metric, data], axis=1) 
             
             # Mean number of nan of each subject across all metrics
             # I make this is a feature
-            na = np.sum(np.isnan(data), axis=1) > 0
-            num_na += np.int32(na)  # Number of nan of each subject
+            # na = np.sum(np.isnan(data), axis=1) > 0
+            # num_na += np.int32(na)  # Number of nan of each subject
             
         data_for_all[metrics_] = data_for_one_metric
         # mean_num_na = num_na/len(METRICS)
